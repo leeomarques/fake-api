@@ -1,5 +1,6 @@
-package com.example.fakeapi.apiv1.dto;
+package com.example.fakeapi.apiv1.controller;
 
+import com.example.fakeapi.apiv1.dto.ProductsDTO;
 import com.example.fakeapi.business.FakeApiService;
 import com.example.fakeapi.business.service.ProdutoService;
 import io.swagger.v3.oas.annotations.Operation;
