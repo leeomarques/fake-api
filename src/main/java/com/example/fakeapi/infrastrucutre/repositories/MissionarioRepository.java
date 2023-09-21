@@ -1,16 +1,18 @@
 package com.example.fakeapi.infrastrucutre.repositories;
 
+import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import com.example.fakeapi.infrastrucutre.entities.ProdutoEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository<ProdutoEntity, String> {
+public interface MissionarioRepository extends JpaRepository<MissionarioEntity, String> {
 
-    Boolean existsByNome(String nome);
+    Boolean existsByNomeCompleto(String nome);
 
-    ProdutoEntity findByNome(String nome);
+    MissionarioEntity findByNomeCompleto(String nome);
 
     void deleteById(String id);
+
 }

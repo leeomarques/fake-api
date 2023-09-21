@@ -4,6 +4,7 @@ import com.example.fakeapi.apiv1.dto.MissionarioDTO;
 import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -28,6 +29,28 @@ public class MissionarioConverter {
                 .dataAtualizacao(dto.getDataAtualizacao())
                 .build();
     }
+
+
+    public MissionarioEntity toEntityUpdate(MissionarioEntity entity, MissionarioDTO dto, String id) {
+        return MissionarioEntity
+                .builder()
+                .id(id)
+                .nomeCompleto(dto.getNomeCompleto() != null ? dto.getNomeCompleto() : entity.getNomeCompleto())
+                .nivelFormativo(dto.getNivelFormativo() != null ? dto.getNivelFormativo() : entity.getNivelFormativo())
+                .formacao(dto.getFormacao() != null ? dto.getFormacao() : entity.getFormacao())
+                .missao(null) // Você precisa implementar a lógica de mapeamento de ID da MissaoEntity
+                .ministerios(null) // Você precisa implementar a lógica de mapeamento de IDs dos ministérios
+                .formadorPessoal(null) // Você precisa implementar a lógica de mapeamento de ID da FormadorPessoalEntity
+                .formadorComunitario(null) // Você precisa implementar a lógica de mapeamento de ID da FormadorComunitarioEntity
+                .acompanhamentoComunitario(null) // Você precisa implementar a lógica de mapeamento de ID da AcompanhamentoComunitarioEntity
+                .reciclagem(null) // Você precisa implementar a lógica de mapeamento de IDs das reciclagens
+                .foto(dto.getFoto() != null ? dto.getFoto() : entity.getFoto())
+                .historico(null) // Você precisa implementar a lógica de mapeamento de ID da HistoricoEntity
+                .dataInclusao(entity.getDataInclusao())
+                .dataAtualizacao(LocalDateTime.now())
+                .build();
+    }
+
 
     public MissionarioDTO toDTO(MissionarioEntity entity) {
         return MissionarioDTO

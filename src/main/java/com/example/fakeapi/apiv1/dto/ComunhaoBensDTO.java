@@ -24,6 +24,12 @@ public class ComunhaoBensDTO {
     @JsonProperty("valor5Percent")
     private BigDecimal valor5Percent;
 
+    @JsonProperty("mes_referencia")
+    private String mesReferencia;
+
+    @JsonProperty("ano_referencia")
+    private String anoReferencia;
+
     @JsonProperty("situacao")
     private String situacao;
 

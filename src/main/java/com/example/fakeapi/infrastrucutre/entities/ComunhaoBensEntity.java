@@ -29,6 +29,12 @@ public class ComunhaoBensEntity {
     @Column(name = "valor_5_percent")
     private BigDecimal valor5Percent;
 
+    @Column(name = "mes_referencia")
+    private String mesReferencia;
+
+    @Column(name = "ano_referencia")
+    private String anoReferencia;
+
     @Column(name = "situacao")
     private String situacao;
 
