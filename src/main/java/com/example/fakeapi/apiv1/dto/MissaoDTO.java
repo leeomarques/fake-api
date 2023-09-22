@@ -11,7 +11,7 @@ import lombok.*;
 public class MissaoDTO {
 
     @JsonProperty("id")
-    private String id;
+    private Long id;
 
     @JsonProperty("nomeDaMissao")
     private String nomeDaMissao;

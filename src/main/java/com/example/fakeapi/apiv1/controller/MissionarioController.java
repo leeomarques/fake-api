@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/missionarios")
+@RequestMapping("/missionario")
 @RequiredArgsConstructor
-@Tag(name = "missionarios-api")
+@Tag(name = "API - Missionário")
 public class MissionarioController {
 
     private final MissionarioService missionarioService;

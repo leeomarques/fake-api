@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reciclagens")
+@RequestMapping("/reciclagem")
 @RequiredArgsConstructor
-@Tag(name = "reciclagens-api")
+@Tag(name = "API - Reciclagem")
 public class ReciclagemController {
 
     private final ReciclagemService reciclagemService;

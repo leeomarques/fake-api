@@ -14,8 +14,11 @@ public class ReciclagemConverter {
     }
 
     public ReciclagemEntity toEntityUpdate(ReciclagemEntity entity, ReciclagemDTO dto, Long id) {
-        return ReciclagemEntity.builder().id(id) // Use o ID fornecido
-                               .dataPrevista(dto.getDataPrevista()).dataConclusao(dto.getDataConclusao()).build();
+        return ReciclagemEntity.builder()
+                               .id(id)
+                               .dataPrevista(dto.getDataPrevista() != null ? dto.getDataPrevista() : entity.getDataPrevista())
+                               .dataConclusao(dto.getDataConclusao() != null ? dto.getDataConclusao() : entity.getDataConclusao())
+                               .build();
     }
 
 
