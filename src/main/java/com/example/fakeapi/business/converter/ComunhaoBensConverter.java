@@ -12,20 +12,38 @@ public class ComunhaoBensConverter {
     public ComunhaoBensEntity toEntity(ComunhaoBensDTO dto) {
         return ComunhaoBensEntity
                 .builder()
-                .missionario(null) // Preencha o missionario se necessário
+                .id(dto.getId())
+                .missionario(null)
                 .valor10Percent(dto.getValor10Percent())
                 .valor5Percent(dto.getValor5Percent())
+                .mesReferencia(dto.getMesReferencia())
+                .anoReferencia(dto.getAnoReferencia())
                 .situacao(dto.getSituacao())
+                .build();
+    }
+
+    public ComunhaoBensEntity toEntityUpdate(ComunhaoBensEntity entity, ComunhaoBensDTO dto, Long id) {
+        return ComunhaoBensEntity
+                .builder()
+                .id(id)
+                .missionario(null)
+                .valor10Percent(dto.getValor10Percent() != null ? dto.getValor10Percent() : entity.getValor10Percent())
+                .valor5Percent(dto.getValor5Percent() != null ? dto.getValor5Percent() : entity.getValor5Percent())
+                .mesReferencia(dto.getMesReferencia() != null ? dto.getMesReferencia() : entity.getMesReferencia())
+                .anoReferencia(dto.getAnoReferencia() != null ? dto.getAnoReferencia() : entity.getAnoReferencia())
+                .situacao(dto.getSituacao() != null ? dto.getSituacao() : entity.getSituacao())
                 .build();
     }
 
     public ComunhaoBensDTO toDTO(ComunhaoBensEntity entity) {
         return ComunhaoBensDTO
                 .builder()
-                .id(String.valueOf(entity.getId()))
-                .missionarioId(entity.getMissionario() != null ? entity.getMissionario().getId() : null)
+                .id(entity.getId())
+                .missionarioId(null)
                 .valor10Percent(entity.getValor10Percent())
                 .valor5Percent(entity.getValor5Percent())
+                .mesReferencia(entity.getMesReferencia())
+                .anoReferencia(entity.getAnoReferencia())
                 .situacao(entity.getSituacao())
                 .build();
     }

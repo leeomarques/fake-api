@@ -15,7 +15,7 @@ import java.util.List;
 public class MissionarioDTO {
 
     @JsonProperty("id")
-    private String id;
+    private Long id;
 
     @JsonProperty("nomeCompleto")
     private String nomeCompleto;

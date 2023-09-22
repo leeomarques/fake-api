@@ -32,7 +32,7 @@ public class MissionarioController {
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Missionário atualizado com sucesso"),
                            @ApiResponse(responseCode = "500", description = "Erro ao atualizar o Missionário"),})
     @PutMapping("/")
-    public ResponseEntity<MissionarioDTO> atualizar(@RequestParam("id") String id, @RequestBody MissionarioDTO dto) {
+    public ResponseEntity<MissionarioDTO> atualizar(@RequestParam("id") Long id, @RequestBody MissionarioDTO dto) {
         return ResponseEntity.ok(missionarioService.update(id, dto));
     }
 
@@ -40,7 +40,7 @@ public class MissionarioController {
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Missionário deletado com sucesso"),
                            @ApiResponse(responseCode = "500", description = "Erro ao deletar o Missionário"),})
     @DeleteMapping("/")
-    public ResponseEntity<Void> deletar(@RequestParam("id") String id) {
+    public ResponseEntity<Void> deletar(@RequestParam("id") Long id) {
         missionarioService.delete(id);
         return ResponseEntity.accepted().build();
     }

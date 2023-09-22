@@ -12,10 +12,22 @@ public class MinisterioConverter {
     public MinisterioEntity toEntity(MinisterioDTO dto) {
         return MinisterioEntity
                 .builder()
-                .id(dto.getId()) // Se estiver criando um novo, pode usar UUID.randomUUID() para gerar um ID
+                .id(dto.getId())
                 .nome(dto.getNome())
                 .tipo(dto.getTipo())
                 .prioridade(dto.getPrioridade())
+                .missionarios(null)
+                .build();
+    }
+
+    public MinisterioEntity toEntityUpdate(MinisterioEntity entity, MinisterioDTO dto, Long id) {
+        return MinisterioEntity
+                .builder()
+                .id(id)
+                .nome(dto.getNome() != null ? dto.getNome() : entity.getNome())
+                .tipo(dto.getTipo() != null ? dto.getTipo() : entity.getTipo())
+                .prioridade(dto.getPrioridade() != null ? dto.getPrioridade() : entity.getPrioridade())
+                .missionarios(null)
                 .build();
     }
 
@@ -26,6 +38,7 @@ public class MinisterioConverter {
                 .nome(entity.getNome())
                 .tipo(entity.getTipo())
                 .prioridade(entity.getPrioridade())
+                .missionarios(null)
                 .build();
     }
 

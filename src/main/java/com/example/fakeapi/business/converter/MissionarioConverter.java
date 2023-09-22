@@ -24,14 +24,14 @@ public class MissionarioConverter {
                 .acompanhamentoComunitario(null) // Você precisa implementar a lógica de mapeamento de ID da AcompanhamentoComunitarioEntity
                 .reciclagem(null) // Você precisa implementar a lógica de mapeamento de IDs das reciclagens
                 .foto(dto.getFoto())
-                .historico(null) // Você precisa implementar a lógica de mapeamento de ID da HistoricoEntity
+                .historicos(null) // Você precisa implementar a lógica de mapeamento de ID da HistoricoEntity
                 .dataInclusao(dto.getDataInclusao())
                 .dataAtualizacao(dto.getDataAtualizacao())
                 .build();
     }
 
 
-    public MissionarioEntity toEntityUpdate(MissionarioEntity entity, MissionarioDTO dto, String id) {
+    public MissionarioEntity toEntityUpdate(MissionarioEntity entity, MissionarioDTO dto, Long id) {
         return MissionarioEntity
                 .builder()
                 .id(id)
@@ -45,7 +45,7 @@ public class MissionarioConverter {
                 .acompanhamentoComunitario(null) // Você precisa implementar a lógica de mapeamento de ID da AcompanhamentoComunitarioEntity
                 .reciclagem(null) // Você precisa implementar a lógica de mapeamento de IDs das reciclagens
                 .foto(dto.getFoto() != null ? dto.getFoto() : entity.getFoto())
-                .historico(null) // Você precisa implementar a lógica de mapeamento de ID da HistoricoEntity
+                .historicos(null) // Você precisa implementar a lógica de mapeamento de ID da HistoricoEntity
                 .dataInclusao(entity.getDataInclusao())
                 .dataAtualizacao(LocalDateTime.now())
                 .build();

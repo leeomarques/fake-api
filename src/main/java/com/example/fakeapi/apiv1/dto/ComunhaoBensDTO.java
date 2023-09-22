@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class ComunhaoBensDTO {
 
     @JsonProperty("id")
-    private String id;
+    private Long id;
 
     @JsonProperty("missionarioId")
     private String missionarioId;

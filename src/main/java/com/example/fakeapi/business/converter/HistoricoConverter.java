@@ -12,9 +12,25 @@ public class HistoricoConverter {
     public HistoricoEntity toEntity(HistoricoDTO dto) {
         return HistoricoEntity
                 .builder()
+                .id(dto.getId())
                 .pastoreioMudancaDeNivel(dto.getPastoreioMudancaDeNivel())
                 .ano(dto.getAno())
                 .obs(dto.getObs())
+                .ministerios(null)
+                .missionario(null)
+                .build();
+    }
+
+    public HistoricoEntity toEntityUpdate(HistoricoEntity entity, HistoricoDTO dto, Long id) {
+        return HistoricoEntity
+                .builder()
+                .id(id)
+                .pastoreioMudancaDeNivel(
+                        dto.getPastoreioMudancaDeNivel() != null ? dto.getPastoreioMudancaDeNivel() : entity.getPastoreioMudancaDeNivel())
+                .ano(dto.getAno() != null ? dto.getAno() : entity.getAno())
+                .obs(dto.getObs() != null ? dto.getObs() : entity.getObs())
+                .ministerios(null)
+                .missionario(null)
                 .build();
     }
 

@@ -52,7 +52,7 @@ public class MissionarioService {
         }
     }
 
-    public void delete(String id) {
+    public void delete(Long id) {
         try {
             repository.deleteById(id);
         } catch (Exception e) {
@@ -68,13 +68,16 @@ public class MissionarioService {
         }
     }
 
-    public MissionarioDTO update(String id, MissionarioDTO dto) {
+    public MissionarioDTO update(Long id, MissionarioDTO dto) {
         try {
             MissionarioEntity entity = repository.findById(id).orElseThrow(() -> new RuntimeException("Id não existe no banco de dados"));
-            save(converter.toEntityUpdate(entity, dto, id));
-            return converter.toDTO(repository.findByNomeCompleto(entity.getNomeCompleto()));
+            entity = converter.toEntityUpdate(entity, dto, id);
+            save(entity);
+
+            return converter.toDTO(entity);
         } catch (Exception e) {
             throw new RuntimeException(format("Erro ao atualizar o Missionário(a)"), e);
         }
     }
+
 }

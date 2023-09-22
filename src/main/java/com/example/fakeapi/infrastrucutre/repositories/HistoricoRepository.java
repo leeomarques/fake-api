@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HistoricoRepository extends JpaRepository<HistoricoEntity, Long> {
 
+    void deleteById(Long id);
 
 }

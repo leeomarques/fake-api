@@ -13,7 +13,7 @@ import java.util.List;
 public class HistoricoDTO {
 
     @JsonProperty("id")
-    private String id;
+    private Long id;
 
     @JsonProperty("pastoreioMudancaDeNivel")
     private String pastoreioMudancaDeNivel;
@@ -25,5 +25,8 @@ public class HistoricoDTO {
     private String obs;
 
     @JsonProperty("ministerios")
-    private List<String> ministerios;
+    private List<MinisterioDTO> ministerios;
+
+    @JsonProperty("missionarioId")
+    private Long missionarioId;
 }

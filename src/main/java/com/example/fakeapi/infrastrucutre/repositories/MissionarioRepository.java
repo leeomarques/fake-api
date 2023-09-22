@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MissionarioRepository extends JpaRepository<MissionarioEntity, String> {
+public interface MissionarioRepository extends JpaRepository<MissionarioEntity, Long> {
 
     Boolean existsByNomeCompleto(String nome);
 
     MissionarioEntity findByNomeCompleto(String nome);
 
-    void deleteById(String id);
+    void deleteById(Long id);
 
 }

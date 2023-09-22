@@ -18,7 +18,7 @@ public class MissionarioEntity {
 
     @Id
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "nome_completo")
     private String nomeCompleto;
@@ -60,9 +60,8 @@ public class MissionarioEntity {
     @Column(name = "foto", columnDefinition = "BLOB")
     private Blob foto;
 
-    @ManyToOne
-    @JoinColumn(name = "historico_id")
-    private HistoricoEntity historico;
+    @OneToMany(mappedBy = "missionario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HistoricoEntity> historicos;
 
     @Column(name = "data_inclusao")
     private LocalDateTime dataInclusao;

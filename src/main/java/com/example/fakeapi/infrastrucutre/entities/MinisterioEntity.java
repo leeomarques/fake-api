@@ -16,7 +16,7 @@ public class MinisterioEntity {
 
     @Id
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     @Column(name = "nome")
     private String nome;

@@ -33,7 +33,8 @@ public class HistoricoEntity {
                inverseJoinColumns = @JoinColumn(name = "ministerio_id"))
     private List<MinisterioEntity> ministerios;
 
-    @OneToMany(mappedBy = "historico")
-    private List<MissionarioEntity> missionarios;
+    @ManyToOne
+    @JoinColumn(name = "missionario_id")
+    private MissionarioEntity missionario;
 
 }
