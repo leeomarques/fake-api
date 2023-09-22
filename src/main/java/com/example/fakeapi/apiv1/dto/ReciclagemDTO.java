@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class ReciclagemDTO {
 
     @JsonProperty("id")
-    private String id;
+    private Long id;
 
     @JsonProperty("dataPrevista")
     private LocalDate dataPrevista;

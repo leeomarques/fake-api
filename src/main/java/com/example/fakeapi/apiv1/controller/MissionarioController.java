@@ -21,7 +21,7 @@ public class MissionarioController {
     private final MissionarioService missionarioService;
 
     @Operation(summary = "Salva novos Missionários", method = "POST")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Missionário alvo com sucesso"),
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Missionário salvo com sucesso"),
                            @ApiResponse(responseCode = "500", description = "Erro ao salvar o Missionário"),})
     @PostMapping("/")
     public ResponseEntity<MissionarioDTO> salvar(@RequestBody MissionarioDTO dto) {
