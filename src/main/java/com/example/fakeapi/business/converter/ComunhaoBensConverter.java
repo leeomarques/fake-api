@@ -2,6 +2,7 @@ package com.example.fakeapi.business.converter;
 
 import com.example.fakeapi.apiv1.dto.ComunhaoBensDTO;
 import com.example.fakeapi.infrastrucutre.entities.ComunhaoBensEntity;
+import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class ComunhaoBensConverter {
         return ComunhaoBensEntity
                 .builder()
                 .id(dto.getId())
-                .missionario(null)
+                .missionario(MissionarioEntity.builder().build())
                 .valor10Percent(dto.getValor10Percent())
                 .valor5Percent(dto.getValor5Percent())
                 .mesReferencia(dto.getMesReferencia())
@@ -26,7 +27,7 @@ public class ComunhaoBensConverter {
         return ComunhaoBensEntity
                 .builder()
                 .id(id)
-                .missionario(null)
+                .missionario(MissionarioEntity.builder().build())
                 .valor10Percent(dto.getValor10Percent() != null ? dto.getValor10Percent() : entity.getValor10Percent())
                 .valor5Percent(dto.getValor5Percent() != null ? dto.getValor5Percent() : entity.getValor5Percent())
                 .mesReferencia(dto.getMesReferencia() != null ? dto.getMesReferencia() : entity.getMesReferencia())
@@ -39,7 +40,7 @@ public class ComunhaoBensConverter {
         return ComunhaoBensDTO
                 .builder()
                 .id(entity.getId())
-                .missionarioId(null)
+                .missionarioId(entity.getMissionario().getNomeCompleto())
                 .valor10Percent(entity.getValor10Percent())
                 .valor5Percent(entity.getValor5Percent())
                 .mesReferencia(entity.getMesReferencia())

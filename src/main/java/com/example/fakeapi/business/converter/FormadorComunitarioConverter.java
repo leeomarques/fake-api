@@ -2,6 +2,7 @@ package com.example.fakeapi.business.converter;
 
 import com.example.fakeapi.apiv1.dto.FormadorComunitarioDTO;
 import com.example.fakeapi.infrastrucutre.entities.FormadorComunitarioEntity;
+import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,19 +11,20 @@ import java.util.List;
 public class FormadorComunitarioConverter {
 
     public FormadorComunitarioEntity toEntity(FormadorComunitarioDTO dto) {
+        return FormadorComunitarioEntity.builder().id(dto.getId()).missionario(MissionarioEntity.builder().build()).build();
+    }
+
+    public FormadorComunitarioEntity toEntityUpdate(FormadorComunitarioEntity entity, FormadorComunitarioDTO dto, Long id) {
         return FormadorComunitarioEntity
                 .builder()
-                .id(dto.getId()) // Se estiver criando um novo, pode usar UUID.randomUUID() para gerar um ID
-                .nome(dto.getNome())
+                .id(id)
+                .missionario(dto.getMissionario() != null ? dto.getMissionario() : entity.getMissionario())
                 .build();
+
     }
 
     public FormadorComunitarioDTO toDTO(FormadorComunitarioEntity entity) {
-        return FormadorComunitarioDTO
-                .builder()
-                .id(entity.getId())
-                .nome(entity.getNome())
-                .build();
+        return FormadorComunitarioDTO.builder().id(entity.getId()).missionario(MissionarioEntity.builder().build()).build();
     }
 
     public List<FormadorComunitarioDTO> toListDTO(List<FormadorComunitarioEntity> entityList) {

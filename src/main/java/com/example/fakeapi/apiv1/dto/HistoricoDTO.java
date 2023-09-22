@@ -28,5 +28,5 @@ public class HistoricoDTO {
     private List<MinisterioDTO> ministerios;
 
     @JsonProperty("missionarioId")
-    private Long missionarioId;
+    private String missionario;
 }

@@ -1,6 +1,9 @@
 package com.example.fakeapi.apiv1.dto;
 
+import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 
 @Getter
@@ -11,9 +14,10 @@ import lombok.*;
 public class AcompanhamentoComunitarioDTO {
 
     @JsonProperty("id")
-    private String id;
+    private Long id;
 
-    @JsonProperty("nome")
-    private String nome;
+    @OneToOne
+    @JoinColumn(name = "missionario_id")
+    private MissionarioEntity missionario;
 
 }

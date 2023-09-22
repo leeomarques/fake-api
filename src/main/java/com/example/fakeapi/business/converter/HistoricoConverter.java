@@ -2,8 +2,11 @@ package com.example.fakeapi.business.converter;
 
 import com.example.fakeapi.apiv1.dto.HistoricoDTO;
 import com.example.fakeapi.infrastrucutre.entities.HistoricoEntity;
+import com.example.fakeapi.infrastrucutre.entities.MinisterioEntity;
+import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -16,8 +19,8 @@ public class HistoricoConverter {
                 .pastoreioMudancaDeNivel(dto.getPastoreioMudancaDeNivel())
                 .ano(dto.getAno())
                 .obs(dto.getObs())
-                .ministerios(null)
-                .missionario(null)
+                .ministerios(Collections.singletonList(MinisterioEntity.builder().build()))
+                .missionario(MissionarioEntity.builder().build())
                 .build();
     }
 
@@ -37,9 +40,12 @@ public class HistoricoConverter {
     public HistoricoDTO toDTO(HistoricoEntity entity) {
         return HistoricoDTO
                 .builder()
+                .id(entity.getId())
                 .pastoreioMudancaDeNivel(entity.getPastoreioMudancaDeNivel())
                 .ano(entity.getAno())
                 .obs(entity.getObs())
+                .ministerios(null)
+                .missionario(entity.getMissionario().getNomeCompleto())
                 .build();
     }
 

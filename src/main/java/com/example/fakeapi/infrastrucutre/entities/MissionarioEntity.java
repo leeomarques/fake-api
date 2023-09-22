@@ -41,17 +41,14 @@ public class MissionarioEntity {
     @OneToMany(mappedBy = "missionario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ComunhaoBensEntity> comunhoesDeBens;
 
-    @ManyToOne
-    @JoinColumn(name = "formador_pessoal_id")
+    @OneToOne(mappedBy = "missionario")
     private FormadorPessoalEntity formadorPessoal;
 
-    @ManyToOne
-    @JoinColumn(name = "formador_comunitario_id")
+    @OneToOne(mappedBy = "missionario")
     private FormadorComunitarioEntity formadorComunitario;
 
-    @ManyToOne
-    @JoinColumn(name = "acompanhamento_comunitario_id")
-    private AcompanhamentoComunitarioEntity acompanhamentoComunitario;
+    @OneToOne(mappedBy = "missionario")
+    private AcompanhamentoComunitarioEntity acompanhadorComunitario;
 
     @OneToMany(mappedBy = "missionario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReciclagemEntity> reciclagem;

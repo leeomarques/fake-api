@@ -3,7 +3,6 @@ package com.example.fakeapi.apiv1.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.sql.Blob;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,29 +25,29 @@ public class MissionarioDTO {
     @JsonProperty("formacao")
     private String formacao;
 
-    @JsonProperty("missaoId")
-    private String missaoId;
+    @JsonProperty("missao")
+    private Long missao;
 
     @JsonProperty("ministerios")
-    private List<String> ministerios;
+    private List<Long> ministerios;
 
     @JsonProperty("formadorPessoalId")
-    private String formadorPessoalId;
+    private Long formadorPessoal;
 
     @JsonProperty("formadorComunitarioId")
-    private String formadorComunitarioId;
+    private Long formadorComunitario;
 
     @JsonProperty("acompanhamentoComunitarioId")
-    private String acompanhamentoComunitarioId;
+    private Long acompanhamentoComunitario;
 
-    @JsonProperty("historicoId")
-    private String historicoId;
+    @JsonProperty("reciclagens")
+    private List<Long> reciclagens;
 
     @JsonProperty("foto")
-    private Blob foto;
+    private String foto;
 
-    @JsonProperty("reciclagem")
-    private String reciclagem;
+    @JsonProperty("historicos")
+    private List<Long> historicos;
 
     @JsonProperty("dataInclusao")
     private LocalDateTime dataInclusao;

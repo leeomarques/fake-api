@@ -22,5 +22,5 @@ public class ReciclagemDTO {
     private LocalDate dataConclusao;
 
     @JsonProperty("missionarioId")
-    private String missionarioId;
+    private String missionario;
 }

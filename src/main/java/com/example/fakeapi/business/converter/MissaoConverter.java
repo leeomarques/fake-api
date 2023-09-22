@@ -2,6 +2,7 @@ package com.example.fakeapi.business.converter;
 
 import com.example.fakeapi.apiv1.dto.MissaoDTO;
 import com.example.fakeapi.infrastrucutre.entities.MissaoEntity;
+import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,8 +17,8 @@ public class MissaoConverter {
                 .nomeDaMissao(dto.getNomeDaMissao())
                 .nivelDaMissao(dto.getNivelDaMissao())
                 .tipoDaMissao(dto.getTipoDaMissao())
-                .responsavelLocal(null)
-                .coordenadorApostolico(null)
+                .responsavelLocal(MissionarioEntity.builder().build())
+                .coordenadorApostolico(MissionarioEntity.builder().build())
                 .build();
     }
 
@@ -28,8 +29,8 @@ public class MissaoConverter {
                 .nomeDaMissao(dto.getNomeDaMissao() != null ? dto.getNomeDaMissao() : entity.getNomeDaMissao())
                 .nivelDaMissao(dto.getNivelDaMissao() != null ? dto.getNivelDaMissao() : entity.getNivelDaMissao())
                 .tipoDaMissao(dto.getTipoDaMissao() != null ? dto.getTipoDaMissao() : entity.getTipoDaMissao())
-                .responsavelLocal(null)
-                .coordenadorApostolico(null)
+                .responsavelLocal(entity.getResponsavelLocal())
+                .coordenadorApostolico(entity.getCoordenadorApostolico())
                 .build();
     }
 
@@ -40,8 +41,8 @@ public class MissaoConverter {
                 .nomeDaMissao(entity.getNomeDaMissao())
                 .nivelDaMissao(entity.getNivelDaMissao())
                 .tipoDaMissao(entity.getTipoDaMissao())
-                .responsavelLocalId(null)
-                .coordenadorApostolicoId(null)
+                .responsavelLocalId(entity.getResponsavelLocal().getNomeCompleto())
+                .coordenadorApostolicoId(entity.getCoordenadorApostolico().getNomeCompleto())
                 .build();
     }
 

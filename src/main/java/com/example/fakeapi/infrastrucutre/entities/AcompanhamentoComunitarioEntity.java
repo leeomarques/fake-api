@@ -1,14 +1,11 @@
 package com.example.fakeapi.infrastrucutre.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 
 @Entity
-@Table(name = "formadores_comunitarios")
+@Table(name = "acompanhadores_comunitarios")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,9 +15,10 @@ public class AcompanhamentoComunitarioEntity {
 
     @Id
     @Column(name = "id")
-    private String id;
+    private Long id;
 
-    @Column(name = "nome")
-    private String nome;
+    @OneToOne
+    @JoinColumn(name = "missionario_id")
+    private MissionarioEntity missionario;
 
 }
