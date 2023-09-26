@@ -26,28 +26,31 @@ public class MissionarioDTO {
     private String formacao;
 
     @JsonProperty("missao")
-    private Long missao;
+    private String missao;
 
-    @JsonProperty("ministerios")
-    private List<Long> ministerios;
+    @JsonProperty("formadorPessoal")
+    private Boolean formadorPessoal;
 
-    @JsonProperty("formadorPessoalId")
-    private Long formadorPessoal;
+    @JsonProperty("formadorComunitario")
+    private Boolean formadorComunitario;
 
-    @JsonProperty("formadorComunitarioId")
-    private Long formadorComunitario;
-
-    @JsonProperty("acompanhamentoComunitarioId")
-    private Long acompanhamentoComunitario;
-
-    @JsonProperty("reciclagens")
-    private List<Long> reciclagens;
+    @JsonProperty("acompanhamentoComunitario")
+    private Boolean acompanhamentoComunitario;
 
     @JsonProperty("foto")
     private String foto;
 
+    @JsonProperty("reciclagens")
+    private List<String> reciclagens;
+
     @JsonProperty("historicos")
-    private List<Long> historicos;
+    private List<String> historicos;
+
+    @JsonProperty("ministerios")
+    private List<String> ministerios;
+
+    @JsonProperty("comunhaoDeBens")
+    private List<String> comunhaoDeBens;
 
     @JsonProperty("dataInclusao")
     private LocalDateTime dataInclusao;
