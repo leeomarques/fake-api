@@ -17,8 +17,8 @@ public class MissaoConverter {
                 .nomeDaMissao(dto.getNomeDaMissao())
                 .nivelDaMissao(dto.getNivelDaMissao())
                 .tipoDaMissao(dto.getTipoDaMissao())
-                .responsavelLocal(MissionarioEntity.builder().build())
-                .coordenadorApostolico(MissionarioEntity.builder().build())
+                .responsavelLocal(null)
+                .coordenadorApostolico(null)
                 .build();
     }
 
@@ -41,8 +41,8 @@ public class MissaoConverter {
                 .nomeDaMissao(entity.getNomeDaMissao())
                 .nivelDaMissao(entity.getNivelDaMissao())
                 .tipoDaMissao(entity.getTipoDaMissao())
-                .responsavelLocalId(entity.getResponsavelLocal().getNomeCompleto())
-                .coordenadorApostolicoId(entity.getCoordenadorApostolico().getNomeCompleto())
+                .responsavelLocalId(null)
+                .coordenadorApostolicoId(null)
                 .build();
     }
 

@@ -1,6 +1,6 @@
 package com.example.fakeapi.business.converter;
 
-import com.example.fakeapi.apiv1.dto.MissionarioDTO;
+import com.example.fakeapi.apiv1.dto.*;
 import com.example.fakeapi.infrastrucutre.entities.*;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,30 +18,36 @@ import java.util.stream.Collectors;
 @Component
 public class MissionarioConverter {
 
-    private final ReciclagemConverter reciclagemConverter;
-    private final HistoricoConverter historicoConverter;
-
-    public MissionarioConverter(ReciclagemConverter reciclagemConverter, HistoricoConverter historicoConverter) {
-        this.reciclagemConverter = reciclagemConverter;
-        this.historicoConverter = historicoConverter;
-    }
 
     public MissionarioEntity toEntity(MissionarioDTO dto) {
+
         return MissionarioEntity
                 .builder()
                 .id(dto.getId())
                 .nomeCompleto(dto.getNomeCompleto())
                 .nivelFormativo(dto.getNivelFormativo())
                 .formacao(dto.getFormacao())
-                .missao(MissaoEntity.builder().build())
-                .ministerios(Collections.singletonList(MinisterioEntity.builder().build()))
-                .formadorPessoal(FormadorPessoalEntity.builder().build())
-                .formadorComunitario(FormadorComunitarioEntity.builder().build())
-                .acompanhadorComunitario(AcompanhamentoComunitarioEntity.builder().build())
-                .reciclagem(Collections.singletonList(ReciclagemEntity.builder().build()))
+                .missao(MissaoEntity.builder().id(dto.getMissao()).build())
+                .ministerios(dto.getMinisterios().stream().map(ministerioId -> {
+                    MinisterioEntity ministerioEntity = new MinisterioEntity();
+                    ministerioEntity.setId(ministerioId);
+                    return ministerioEntity;
+                }).collect(Collectors.toList()))
+                .formadorPessoal(FormadorPessoalEntity.builder().id(dto.getFormadorPessoal()).build())
+                .formadorComunitario(FormadorComunitarioEntity.builder().id(dto.getFormadorComunitario()).build())
+                .acompanhamentoComunitario(AcompanhadoresComunitarioEntity.builder().id(dto.getAcompanhamentoComunitario()).build())
+                .reciclagem(dto.getReciclagens().stream().map(reciclagemId -> {
+                    ReciclagemEntity reciclagemEntity = new ReciclagemEntity();
+                    reciclagemEntity.setId(reciclagemId);
+                    return reciclagemEntity;
+                }).collect(Collectors.toList()))
                 .foto(stringToBlob(dto.getFoto()))
-                .historicos(Collections.singletonList((HistoricoEntity.builder().build())))
-                .dataInclusao(dto.getDataInclusao())
+                .historicos(dto.getHistoricos().stream().map(historicoId -> {
+                    HistoricoEntity historicoEntity = new HistoricoEntity();
+                    historicoEntity.setId(historicoId);
+                    return historicoEntity;
+                }).collect(Collectors.toList()))
+                .dataInclusao(LocalDateTime.now())
                 .dataAtualizacao(dto.getDataAtualizacao())
                 .build();
     }
@@ -63,7 +70,7 @@ public class MissionarioConverter {
                                      entity.getMinisterios())
                 .formadorPessoal(null)
                 .formadorComunitario(null)
-                .acompanhadorComunitario(null)
+                .acompanhamentoComunitario(null)
                 .reciclagem(null)
                 .foto(dto.getFoto() != null ? stringToBlob(dto.getFoto()) : entity.getFoto())
                 .historicos(null)
@@ -75,30 +82,57 @@ public class MissionarioConverter {
 
 
     public MissionarioDTO toDTO(MissionarioEntity entity) {
-        MissionarioDTO dto = MissionarioDTO
+        MissaoDTO missaoDTO = new MissaoDTO();
+        MinisterioDTO ministerioDTO = new MinisterioDTO();
+        ReciclagemDTO reciclagemDTO = new ReciclagemDTO();
+        HistoricoDTO historicoDTO = new HistoricoDTO();
+        FormadorPessoalDTO formadorPessoalDTO = new FormadorPessoalDTO();
+        FormadorComunitarioDTO formadorComunitarioDTO = new FormadorComunitarioDTO();
+        AcompanhadoresComunitarioDTO acompanhamentoComunitarioDTO = new AcompanhadoresComunitarioDTO();
+
+
+        MissionarioDTO missionarioDTO = MissionarioDTO
                 .builder()
                 .id(entity.getId())
-                .nomeCompleto(getValueOrNull(entity.getNomeCompleto()))
-                .nivelFormativo(getValueOrNull(entity.getNivelFormativo()))
-                .formacao(getValueOrNull(entity.getFormacao()))
+                .nomeCompleto(entity.getNomeCompleto())
+                .nivelFormativo(entity.getNivelFormativo())
+                .formacao(entity.getFormacao())
                 .foto(blobToString(entity.getFoto()))
-                .dataInclusao(entity.getDataInclusao())
+                .dataInclusao(LocalDateTime.now())
                 .dataAtualizacao(entity.getDataAtualizacao())
-                .missao(entity.getMissao() != null ? entity.getMissao().getId() : null)
-                .formadorPessoal(entity.getFormadorPessoal() != null ? entity.getFormadorPessoal().getId() : null)
-                .formadorComunitario(entity.getFormadorComunitario() != null ? entity.getFormadorComunitario().getId() : null)
-                .acompanhamentoComunitario(entity.getAcompanhadorComunitario() != null ? entity.getAcompanhadorComunitario().getId() : null)
-                .reciclagens(null)
-                .historicos(null)
                 .build();
 
-        return dto;
-    }
+        if (missaoDTO.getId() != null) {
+            missionarioDTO.setMissao(missaoDTO.getId());
+        }
 
-    private String getValueOrNull(String value) {
-        return value != null ? value : null;
-    }
+        if (formadorPessoalDTO.getMissionario() != null) {
+            missionarioDTO.setFormadorPessoal(formadorPessoalDTO.getMissionario().getId());
+        }
 
+        if (formadorComunitarioDTO.getMissionario() != null) {
+            missionarioDTO.setFormadorComunitario(formadorComunitarioDTO.getMissionario().getId());
+        }
+
+        if (acompanhamentoComunitarioDTO.getMissionario() != null) {
+            missionarioDTO.setAcompanhamentoComunitario(acompanhamentoComunitarioDTO.getMissionario().getId());
+        }
+
+        if (reciclagemDTO.getId() != null) {
+            missionarioDTO.setReciclagens(Collections.singletonList(reciclagemDTO.getId()));
+        }
+
+        if (historicoDTO.getId() != null) {
+            missionarioDTO.setHistoricos(Collections.singletonList(historicoDTO.getId()));
+        }
+
+        if (ministerioDTO.getId() != null) {
+            missionarioDTO.setMinisterios(Collections.singletonList(ministerioDTO.getId()));
+        }
+
+        return missionarioDTO;
+
+    }
 
     public List<MissionarioDTO> toListDTO(List<MissionarioEntity> entityList) {
         return entityList.stream().map(this::toDTO).collect(Collectors.toList());

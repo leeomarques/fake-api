@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface ComunhaoBensRepository extends JpaRepository<ComunhaoBensEntity, Long> {
 
 
+
 }

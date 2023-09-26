@@ -1,7 +1,7 @@
 package com.example.fakeapi.business.converter;
 
-import com.example.fakeapi.apiv1.dto.AcompanhamentoComunitarioDTO;
-import com.example.fakeapi.infrastrucutre.entities.AcompanhamentoComunitarioEntity;
+import com.example.fakeapi.apiv1.dto.AcompanhadoresComunitarioDTO;
+import com.example.fakeapi.infrastrucutre.entities.AcompanhadoresComunitarioEntity;
 import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import org.springframework.stereotype.Component;
 
@@ -10,29 +10,29 @@ import java.util.List;
 @Component
 public class AcompanhamentoComunitarioConverter {
 
-    public AcompanhamentoComunitarioEntity toEntity(AcompanhamentoComunitarioDTO dto) {
-        return AcompanhamentoComunitarioEntity.builder()
+    public AcompanhadoresComunitarioEntity toEntity(AcompanhadoresComunitarioDTO dto) {
+        return AcompanhadoresComunitarioEntity.builder()
                                               .id(dto.getId())
                                               .missionario(MissionarioEntity.builder().build())
                                               .build();
     }
 
-    public AcompanhamentoComunitarioEntity toEntityUpdate(AcompanhamentoComunitarioEntity entity, AcompanhamentoComunitarioDTO dto, Long id) {
-        return AcompanhamentoComunitarioEntity.builder()
+    public AcompanhadoresComunitarioEntity toEntityUpdate(AcompanhadoresComunitarioEntity entity, AcompanhadoresComunitarioDTO dto, Long id) {
+        return AcompanhadoresComunitarioEntity.builder()
                                               .id(id)
                                               .missionario(dto.getMissionario() != null ? dto.getMissionario() : entity.getMissionario())
                                               .build();
 
     }
 
-    public AcompanhamentoComunitarioDTO toDTO(AcompanhamentoComunitarioEntity entity) {
-        return AcompanhamentoComunitarioDTO.builder()
+    public AcompanhadoresComunitarioDTO toDTO(AcompanhadoresComunitarioEntity entity) {
+        return AcompanhadoresComunitarioDTO.builder()
                                            .id(entity.getId())
                                            .missionario(MissionarioEntity.builder().build())
                                            .build();
     }
 
-    public List<AcompanhamentoComunitarioDTO> toListDTO(List<AcompanhamentoComunitarioEntity> entityList) {
+    public List<AcompanhadoresComunitarioDTO> toListDTO(List<AcompanhadoresComunitarioEntity> entityList) {
         return entityList.stream().map(this::toDTO).toList();
     }
 }

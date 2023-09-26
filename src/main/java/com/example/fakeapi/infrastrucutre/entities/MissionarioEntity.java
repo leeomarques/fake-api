@@ -1,5 +1,6 @@
 package com.example.fakeapi.infrastrucutre.entities;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class MissionarioEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -29,7 +31,7 @@ public class MissionarioEntity {
     @Column(name = "formacao")
     private String formacao;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "missao_id")
     private MissaoEntity missao;
 
@@ -47,8 +49,9 @@ public class MissionarioEntity {
     @OneToOne(mappedBy = "missionario")
     private FormadorComunitarioEntity formadorComunitario;
 
-    @OneToOne(mappedBy = "missionario")
-    private AcompanhamentoComunitarioEntity acompanhadorComunitario;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "acompanhamento_comunitario_id", nullable = true)
+    private AcompanhadoresComunitarioEntity acompanhamentoComunitario;
 
     @OneToMany(mappedBy = "missionario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReciclagemEntity> reciclagem;

@@ -1,5 +1,6 @@
 package com.example.fakeapi.apiv1.dto;
 
+import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -22,5 +23,5 @@ public class ReciclagemDTO {
     private LocalDate dataConclusao;
 
     @JsonProperty("missionarioId")
-    private String missionario;
+    private MissionarioEntity missionario;
 }

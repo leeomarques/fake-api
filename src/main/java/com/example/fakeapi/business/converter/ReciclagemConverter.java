@@ -11,10 +11,11 @@ import java.util.List;
 public class ReciclagemConverter {
 
     public ReciclagemEntity toEntity(ReciclagemDTO dto) {
+        MissionarioEntity missionarioEntity = new MissionarioEntity();
         return ReciclagemEntity
                 .builder()
                 .id(dto.getId())
-                .missionario(MissionarioEntity.builder().build())
+                .missionario(MissionarioEntity.builder().id(missionarioEntity.getId()).build())
                 .dataPrevista(dto.getDataPrevista())
                 .dataConclusao(dto.getDataConclusao())
                 .build();
@@ -35,7 +36,7 @@ public class ReciclagemConverter {
         return ReciclagemDTO
                 .builder()
                 .id(entity.getId())
-                .missionario(entity.getMissionario().getNomeCompleto())
+                .missionario(entity.getMissionario())
                 .dataPrevista(entity.getDataPrevista())
                 .dataConclusao(entity.getDataConclusao())
                 .build();

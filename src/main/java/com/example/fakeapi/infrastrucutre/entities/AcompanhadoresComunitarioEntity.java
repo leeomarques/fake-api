@@ -11,14 +11,15 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AcompanhamentoComunitarioEntity {
+public class AcompanhadoresComunitarioEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "missionario_id")
+    @OneToOne(optional = false)
+    @JoinColumn(name = "missionario_id", nullable = true)
     private MissionarioEntity missionario;
 
 }
