@@ -19,54 +19,56 @@ public class MissionarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "missionario_id")
     private Long id;
 
-    @Column(name = "nome_completo")
+    @Column(name = "nomeCompleto")
     private String nomeCompleto;
 
-    @Column(name = "nivel_formativo")
+    @Column(name = "nivelFormativo")
     private String nivelFormativo;
 
     @Column(name = "formacao")
     private String formacao;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "missao_id")
-    private MissaoEntity missao;
+    @Column(name = "missao")
+    private String missao;
 
-    @ManyToMany
-    @JoinTable(name = "missionarios_ministerios", joinColumns = @JoinColumn(name = "missionario_id"),
-               inverseJoinColumns = @JoinColumn(name = "ministerio_id"))
-    private List<MinisterioEntity> ministerios;
+    @Column(name = "formadorPessoal")
+    private Boolean formadorPessoal;
 
-    @OneToMany(mappedBy = "missionario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ComunhaoBensEntity> comunhoesDeBens;
+    @Column(name = "formadorComunitario")
+    private Boolean formadorComunitario;
 
-    @OneToOne(mappedBy = "missionario")
-    private FormadorPessoalEntity formadorPessoal;
-
-    @OneToOne(mappedBy = "missionario")
-    private FormadorComunitarioEntity formadorComunitario;
-
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "acompanhamento_comunitario_id", nullable = true)
-    private AcompanhadoresComunitarioEntity acompanhamentoComunitario;
-
-    @OneToMany(mappedBy = "missionario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReciclagemEntity> reciclagem;
+    @Column(name = "acompanhamentoComunitario")
+    private Boolean acompanhamentoComunitario;
 
     @Lob
     @Column(name = "foto", columnDefinition = "BLOB")
     private Blob foto;
 
-    @OneToMany(mappedBy = "missionario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HistoricoEntity> historicos;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "reciclagens", joinColumns = @JoinColumn(name = "missionario_id"))
+    @Column(name = "reciclagem")
+    private List<String> reciclagens;
 
-    @Column(name = "data_inclusao")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "historicos", joinColumns = @JoinColumn(name = "missionario_id"))
+    @Column(name = "historico")
+    private List<String> historicos;
+
+    @OneToMany(mappedBy = "missionario")
+    private List<MinisterioEntity> ministerios;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "comunhaoDeBens", joinColumns = @JoinColumn(name = "missionario_id"))
+    @Column(name = "comunhaoDeBens")
+    private List<String> comunhaoDeBens;
+
+    @Column(name = "dataInclusao")
     private LocalDateTime dataInclusao;
 
-    @Column(name = "data_atualizacao")
+    @Column(name = "dataAtualizacao")
     private LocalDateTime dataAtualizacao;
 
 }

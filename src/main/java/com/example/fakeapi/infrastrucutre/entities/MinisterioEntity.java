@@ -1,9 +1,8 @@
 package com.example.fakeapi.infrastrucutre.entities;
 
+
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "ministerios")
@@ -15,11 +14,12 @@ import java.util.List;
 public class MinisterioEntity {
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ministerio_id")
     private Long id;
 
-    @Column(name = "nome")
-    private String nome;
+    @Column(name = "ministerio")
+    private String ministerio;
 
     @Column(name = "tipo")
     private String tipo;
@@ -27,7 +27,9 @@ public class MinisterioEntity {
     @Column(name = "prioridade")
     private String prioridade;
 
-    @ManyToMany(mappedBy = "ministerios")
-    private List<MissionarioEntity> missionarios;
+    @ManyToOne
+    @JoinColumn(name = "missionario_id", nullable = false)
+    private MissionarioEntity missionario;
+
 
 }

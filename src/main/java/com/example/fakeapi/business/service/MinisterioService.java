@@ -22,7 +22,7 @@ public class MinisterioService {
         try {
             return repository.save(entity);
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar os dados do Ministério" + e);
+            throw new RuntimeException("Erro ao salvar o Ministério" + e);
         }
     }
 
@@ -31,17 +31,7 @@ public class MinisterioService {
             MinisterioEntity entity = converter.toEntity(dto);
             return converter.toDTO(repository.save(entity));
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao salvar os dados do Ministério" + e);
-        }
-    }
-
-
-    public MinisterioDTO findById(Long id) {
-        try {
-            MinisterioEntity entity = repository.findById(id).orElseThrow(() -> new RuntimeException("Id não existe no banco de dados"));
-            return converter.toDTO(entity);
-        } catch (Exception e) {
-            throw new RuntimeException(format("Erro ao buscar os dados do Ministério", id), e);
+            throw new RuntimeException("Erro ao salvar o Ministério" + e);
         }
     }
 
@@ -49,7 +39,7 @@ public class MinisterioService {
         try {
             return converter.toListDTO(repository.findAll());
         } catch (Exception e) {
-            throw new RuntimeException(format("Erro ao buscar todos os dados do Ministério"), e);
+            throw new RuntimeException(format("Erro ao buscar todos os Missionários(as)"), e);
         }
     }
 
@@ -57,15 +47,7 @@ public class MinisterioService {
         try {
             repository.deleteById(id);
         } catch (Exception e) {
-            throw new RuntimeException(format("Erro ao deletar os dados do Ministério", id), e);
-        }
-    }
-
-    public Boolean existsById(Long id) {
-        try {
-            return repository.existsById(id);
-        } catch (Exception e) {
-            throw new RuntimeException(format("Erro ao buscar os dados do Ministério", id), e);
+            throw new RuntimeException(format("Erro ao deletar o Ministério", id), e);
         }
     }
 
@@ -74,9 +56,10 @@ public class MinisterioService {
             MinisterioEntity entity = repository.findById(id).orElseThrow(() -> new RuntimeException("Id não existe no banco de dados"));
             entity = converter.toEntityUpdate(entity, dto, id);
             save(entity);
+
             return converter.toDTO(entity);
         } catch (Exception e) {
-            throw new RuntimeException(format("Erro ao atualizar os dados do Ministério"), e);
+            throw new RuntimeException(format("Erro ao atualizar o Ministério"), e);
         }
     }
 }

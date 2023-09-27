@@ -15,49 +15,42 @@ import java.util.List;
 @RestController
 @RequestMapping("/ministerio")
 @RequiredArgsConstructor
-@Tag(name = "API - Ministério")
+@Tag(name = "API - Ministérios")
 public class MinisterioController {
 
     private final MinisterioService ministerioService;
 
-    @Operation(summary = "Salva novos dados do Ministério", method = "POST")
+    @Operation(summary = "Salva novos Ministérios", method = "POST")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Ministério salvo com sucesso"),
-                           @ApiResponse(responseCode = "500", description = "Erro ao salvar os dados do Ministério"),})
+                           @ApiResponse(responseCode = "500", description = "Erro ao salvar o Ministério"),})
     @PostMapping("/")
     public ResponseEntity<MinisterioDTO> salvar(@RequestBody MinisterioDTO dto) {
         return ResponseEntity.ok(ministerioService.saveDTO(dto));
     }
 
-    @Operation(summary = "Fazer update novos dados do Ministério", method = "PUT")
+    @Operation(summary = "Fazer update novos Ministérios", method = "PUT")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Ministério atualizado com sucesso"),
-                           @ApiResponse(responseCode = "500", description = "Erro ao atualizar os dados do Ministério"),})
+                           @ApiResponse(responseCode = "500", description = "Erro ao atualizar o Ministério"),})
     @PutMapping("/")
     public ResponseEntity<MinisterioDTO> atualizar(@RequestParam("id") Long id, @RequestBody MinisterioDTO dto) {
         return ResponseEntity.ok(ministerioService.update(id, dto));
     }
 
-    @Operation(summary = "Deleta dados do Ministério", method = "DELETE")
+    @Operation(summary = "Deleta Ministérios", method = "DELETE")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Ministério deletado com sucesso"),
-                           @ApiResponse(responseCode = "500", description = "Erro ao deletar os dados do Ministério"),})
+                           @ApiResponse(responseCode = "500", description = "Erro ao deletar o Ministério"),})
     @DeleteMapping("/")
     public ResponseEntity<Void> deletar(@RequestParam("id") Long id) {
         ministerioService.delete(id);
         return ResponseEntity.accepted().build();
     }
 
-    @Operation(summary = "Busca todos os dados do Ministério cadastrados", method = "GET")
+    @Operation(summary = "Busca todos os Ministérios cadastrados", method = "GET")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Ministério atualizado com sucesso"),
-                           @ApiResponse(responseCode = "500", description = "Erro ao atualizar os dados do Ministério"),})
+                           @ApiResponse(responseCode = "500", description = "Erro ao atualizar o Ministério"),})
     @GetMapping("/")
     public ResponseEntity<List<MinisterioDTO>> buscarTodos() {
         return ResponseEntity.ok(ministerioService.findAll());
     }
 
-    @Operation(summary = "Busca todos os dados da Ministério por Id", method = "GET")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Ministério atualizado com sucesso"),
-                           @ApiResponse(responseCode = "500", description = "Erro ao atualizar os dados do Ministério"),})
-    @GetMapping("/{id}")
-    public ResponseEntity<MinisterioDTO> buscarPorId(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(ministerioService.findById(id));
-    }
 }
