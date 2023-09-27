@@ -1,7 +1,10 @@
 package com.example.fakeapi.business.converter;
 
 import com.example.fakeapi.apiv1.dto.MissionarioDTO;
+import com.example.fakeapi.infrastrucutre.entities.MinisterioEntity;
 import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
+import com.example.fakeapi.infrastrucutre.repositories.MinisterioRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
@@ -11,14 +14,31 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class MissionarioConverter {
 
+    public final MinisterioRepository ministerioRepository;
 
-    public MissionarioEntity toEntity(MissionarioDTO dto) {
+    public MissionarioConverter(MinisterioRepository ministerioRepository) {
+        this.ministerioRepository = ministerioRepository;
+    }
+
+    public MissionarioEntity toEntity(@NotNull MissionarioDTO dto) {
+        List<MinisterioEntity> ministeryEntities = new ArrayList<>();
+
+        if (dto.getMinisterios() != null && !dto.getMinisterios().isEmpty()) {
+            for (Long ministerioId : dto.getMinisterios()) {
+                MinisterioEntity ministerio = ministerioRepository
+                        .findById(ministerioId)
+                        .orElseThrow(() -> new RuntimeException("Ministério não encontrado com ID: " + ministerioId));
+                ministeryEntities.add(ministerio);
+            }
+        }
+
         return MissionarioEntity
                 .builder()
                 .id(dto.getId())
@@ -32,15 +52,25 @@ public class MissionarioConverter {
                 .reciclagens(dto.getReciclagens())
                 .foto(stringToBlob(dto.getFoto()))
                 .historicos(dto.getHistoricos())
-                .ministerios(dto.getMinisterios())
+                .ministerios(ministeryEntities)
                 .comunhaoDeBens(dto.getComunhaoDeBens())
                 .dataInclusao(LocalDateTime.now())
                 .dataAtualizacao(dto.getDataAtualizacao())
                 .build();
     }
 
+    public MissionarioEntity toEntityUpdate(MissionarioEntity entity, @NotNull MissionarioDTO dto, Long id) {
+        List<MinisterioEntity> ministeryEntities = new ArrayList<>();
 
-    public MissionarioEntity toEntityUpdate(MissionarioEntity entity, MissionarioDTO dto, Long id) {
+        if (dto.getMinisterios() != null && !dto.getMinisterios().isEmpty()) {
+            for (Long ministerioId : dto.getMinisterios()) {
+                MinisterioEntity ministerio = ministerioRepository
+                        .findById(ministerioId)
+                        .orElseThrow(() -> new RuntimeException("Ministério não encontrado com ID: " + ministerioId));
+                ministeryEntities.add(ministerio);
+            }
+        }
+
         return MissionarioEntity
                 .builder()
                 .id(id)
@@ -48,7 +78,7 @@ public class MissionarioConverter {
                 .nivelFormativo(dto.getNivelFormativo() != null ? dto.getNivelFormativo() : entity.getNivelFormativo())
                 .formacao(dto.getFormacao() != null ? dto.getFormacao() : entity.getFormacao())
                 .missao(dto.getMissao() != null ? dto.getMissao() : entity.getMissao())
-                .ministerios(dto.getMinisterios() != null ? dto.getMinisterios() : entity.getMinisterios())
+                .ministerios(ministeryEntities.isEmpty() ? entity.getMinisterios() : ministeryEntities)
                 .formadorPessoal(dto.getFormadorPessoal() != null ? dto.getFormadorPessoal() : entity.getFormadorPessoal())
                 .formadorComunitario(dto.getFormadorComunitario() != null ? dto.getFormadorComunitario() : entity.getFormadorComunitario())
                 .acompanhamentoComunitario(
@@ -62,8 +92,15 @@ public class MissionarioConverter {
 
     }
 
+    public MissionarioDTO toDTO(@NotNull MissionarioEntity entity) {
+        List<Long> ministerioIds = new ArrayList<>();
 
-    public MissionarioDTO toDTO(MissionarioEntity entity) {
+        if (entity.getMinisterios() != null && !entity.getMinisterios().isEmpty()) {
+            for (MinisterioEntity ministerio : entity.getMinisterios()) {
+                ministerioIds.add(ministerio.getId());
+            }
+        }
+
         return MissionarioDTO
                 .builder()
                 .id(entity.getId())
@@ -79,11 +116,12 @@ public class MissionarioConverter {
                 .historicos(entity.getHistoricos())
                 .dataInclusao(LocalDateTime.now())
                 .dataAtualizacao(entity.getDataAtualizacao())
+                .ministerios(ministerioIds)
+                .comunhaoDeBens(entity.getComunhaoDeBens())
                 .build();
-
     }
 
-    public List<MissionarioDTO> toListDTO(List<MissionarioEntity> entityList) {
+    public List<MissionarioDTO> toListDTO(@NotNull List<MissionarioEntity> entityList) {
         return entityList.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
@@ -122,5 +160,4 @@ public class MissionarioConverter {
 
         return null;
     }
-
 }

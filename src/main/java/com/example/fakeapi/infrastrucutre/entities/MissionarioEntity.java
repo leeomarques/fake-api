@@ -19,7 +19,7 @@ public class MissionarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "missionario_id")
     private Long id;
 
     @Column(name = "nomeCompleto")
@@ -52,15 +52,13 @@ public class MissionarioEntity {
     @Column(name = "reciclagem")
     private List<String> reciclagens;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "historicos", joinColumns = @JoinColumn(name = "missionario_id"))
     @Column(name = "historico")
     private List<String> historicos;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "ministerios", joinColumns = @JoinColumn(name = "missionario_id"))
-    @Column(name = "ministerios")
-    private List<String> ministerios;
+    @OneToMany(mappedBy = "missionario")
+    private List<MinisterioEntity> ministerios;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "comunhaoDeBens", joinColumns = @JoinColumn(name = "missionario_id"))
