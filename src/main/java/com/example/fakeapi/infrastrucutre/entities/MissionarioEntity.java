@@ -62,7 +62,7 @@ public class MissionarioEntity {
     @Column(name = "ministerios")
     private List<String> ministerios;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "comunhaoDeBens", joinColumns = @JoinColumn(name = "missionario_id"))
     @Column(name = "comunhaoDeBens")
     private List<String> comunhaoDeBens;
