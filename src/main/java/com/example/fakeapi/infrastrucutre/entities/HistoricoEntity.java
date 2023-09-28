@@ -5,27 +5,27 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "ministerios")
+@Table(name = "historicos")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MinisterioEntity {
+public class HistoricoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ministerio_id")
+    @Column(name = "historico_id")
     private Long id;
 
-    @Column(name = "ministerio")
-    private String ministerio;
+    @Column(name = "pastoreio")
+    private String pastoreio;
 
-    @Column(name = "tipo")
-    private String tipo;
+    @Column(name = "ano")
+    private String ano;
 
-    @Column(name = "prioridade")
-    private String prioridade;
+    @Column(name = "observacoes")
+    private String observacoes;
 
     @ManyToOne
     @JoinColumn(name = "missionario_id")

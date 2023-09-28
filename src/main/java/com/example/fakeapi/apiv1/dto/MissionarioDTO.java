@@ -32,7 +32,7 @@ public class MissionarioDTO {
 
     private List<String> reciclagens;
 
-    private List<String> historicos;
+    private List<Long> historicos;
 
     private List<Long> ministerios;
 

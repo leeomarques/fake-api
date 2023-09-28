@@ -52,12 +52,10 @@ public class MissionarioEntity {
     @Column(name = "reciclagem")
     private List<String> reciclagens;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "historicos", joinColumns = @JoinColumn(name = "missionario_id"))
-    @Column(name = "historico")
-    private List<String> historicos;
+    @OneToMany(mappedBy = "missionario", fetch = FetchType.EAGER)
+    private List<HistoricoEntity> historicos;
 
-    @OneToMany(mappedBy = "missionario")
+    @OneToMany(mappedBy = "missionario", fetch = FetchType.EAGER)
     private List<MinisterioEntity> ministerios;
 
     @ElementCollection(fetch = FetchType.EAGER)

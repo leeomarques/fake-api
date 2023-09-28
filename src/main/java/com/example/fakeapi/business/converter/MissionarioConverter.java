@@ -1,8 +1,10 @@
 package com.example.fakeapi.business.converter;
 
 import com.example.fakeapi.apiv1.dto.MissionarioDTO;
+import com.example.fakeapi.infrastrucutre.entities.HistoricoEntity;
 import com.example.fakeapi.infrastrucutre.entities.MinisterioEntity;
 import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
+import com.example.fakeapi.infrastrucutre.repositories.HistoricoRepository;
 import com.example.fakeapi.infrastrucutre.repositories.MinisterioRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
@@ -22,9 +24,11 @@ import java.util.stream.Collectors;
 public class MissionarioConverter {
 
     public final MinisterioRepository ministerioRepository;
+    public final HistoricoRepository historicoRepository;
 
-    public MissionarioConverter(MinisterioRepository ministerioRepository) {
+    public MissionarioConverter(MinisterioRepository ministerioRepository, HistoricoRepository historicoRepository) {
         this.ministerioRepository = ministerioRepository;
+        this.historicoRepository = historicoRepository;
     }
 
     public MissionarioEntity toEntity(@NotNull MissionarioDTO dto) {
@@ -36,6 +40,17 @@ public class MissionarioConverter {
                         .findById(ministerioId)
                         .orElseThrow(() -> new RuntimeException("Ministério não encontrado com ID: " + ministerioId));
                 ministeryEntities.add(ministerio);
+            }
+        }
+
+        List<HistoricoEntity> historicoEntities = new ArrayList<>();
+
+        if (dto.getHistoricos() != null && !dto.getHistoricos().isEmpty()) {
+            for (Long historicoId : dto.getHistoricos()) {
+                HistoricoEntity historico = historicoRepository
+                        .findById(historicoId)
+                        .orElseThrow(() -> new RuntimeException("Histórico não encontrado com ID: " + historicoId));
+                historicoEntities.add(historico);
             }
         }
 
@@ -51,7 +66,7 @@ public class MissionarioConverter {
                 .acompanhamentoComunitario(dto.getAcompanhamentoComunitario())
                 .reciclagens(dto.getReciclagens())
                 .foto(stringToBlob(dto.getFoto()))
-                .historicos(dto.getHistoricos())
+                .historicos(historicoEntities)
                 .ministerios(ministeryEntities)
                 .comunhaoDeBens(dto.getComunhaoDeBens())
                 .dataInclusao(LocalDateTime.now())
@@ -71,6 +86,17 @@ public class MissionarioConverter {
             }
         }
 
+        List<HistoricoEntity> historicoEntities = new ArrayList<>();
+
+        if (dto.getHistoricos() != null && !dto.getHistoricos().isEmpty()) {
+            for (Long historicoId : dto.getHistoricos()) {
+                HistoricoEntity historico = historicoRepository
+                        .findById(historicoId)
+                        .orElseThrow(() -> new RuntimeException("Histórico não encontrado com ID: " + historicoId));
+                historicoEntities.add(historico);
+            }
+        }
+
         return MissionarioEntity
                 .builder()
                 .id(id)
@@ -85,7 +111,7 @@ public class MissionarioConverter {
                         dto.getAcompanhamentoComunitario() != null ? dto.getAcompanhamentoComunitario() : entity.getAcompanhamentoComunitario())
                 .reciclagens(dto.getReciclagens() != null ? dto.getReciclagens() : entity.getReciclagens())
                 .foto(dto.getFoto() != null ? stringToBlob(dto.getFoto()) : entity.getFoto())
-                .historicos(dto.getHistoricos() != null ? dto.getHistoricos() : entity.getHistoricos())
+                .historicos(historicoEntities.isEmpty() ? entity.getHistoricos() : historicoEntities)
                 .dataInclusao(dto.getDataInclusao() != null ? dto.getDataInclusao() : entity.getDataInclusao())
                 .dataAtualizacao(dto.getDataAtualizacao() != null ? dto.getDataAtualizacao() : entity.getDataAtualizacao())
                 .build();
@@ -101,6 +127,14 @@ public class MissionarioConverter {
             }
         }
 
+        List<Long> historicoIds = new ArrayList<>();
+
+        if (entity.getHistoricos() != null && !entity.getHistoricos().isEmpty()) {
+            for (HistoricoEntity historico : entity.getHistoricos()) {
+                historicoIds.add(historico.getId());
+            }
+        }
+
         return MissionarioDTO
                 .builder()
                 .id(entity.getId())
@@ -113,7 +147,7 @@ public class MissionarioConverter {
                 .acompanhamentoComunitario(entity.getAcompanhamentoComunitario())
                 .reciclagens(entity.getReciclagens())
                 .foto(blobToString(entity.getFoto()))
-                .historicos(entity.getHistoricos())
+                .historicos(historicoIds)
                 .dataInclusao(LocalDateTime.now())
                 .dataAtualizacao(entity.getDataAtualizacao())
                 .ministerios(ministerioIds)
