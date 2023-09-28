@@ -30,14 +30,6 @@ public class MissionarioDTO {
 
     private String foto;
 
-    private List<Long> reciclagens;
-
-    private List<Long> historicos;
-
-    private List<Long> ministerios;
-
-    private List<Long> comunhaoDeBens;
-
     private LocalDateTime dataInclusao;
 
     private LocalDateTime dataAtualizacao;
