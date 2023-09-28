@@ -30,13 +30,13 @@ public class MissionarioDTO {
 
     private String foto;
 
-    private List<String> reciclagens;
+    private List<Long> reciclagens;
 
     private List<Long> historicos;
 
     private List<Long> ministerios;
 
-    private List<String> comunhaoDeBens;
+    private List<Long> comunhaoDeBens;
 
     private LocalDateTime dataInclusao;
 

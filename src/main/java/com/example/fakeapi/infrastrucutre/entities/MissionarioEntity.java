@@ -47,10 +47,8 @@ public class MissionarioEntity {
     @Column(name = "foto", columnDefinition = "BLOB")
     private Blob foto;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "reciclagens", joinColumns = @JoinColumn(name = "missionario_id"))
-    @Column(name = "reciclagem")
-    private List<String> reciclagens;
+    @OneToMany(mappedBy = "missionario", fetch = FetchType.EAGER)
+    private List<ReciclagemEntity> reciclagens;
 
     @OneToMany(mappedBy = "missionario", fetch = FetchType.EAGER)
     private List<HistoricoEntity> historicos;
@@ -58,10 +56,8 @@ public class MissionarioEntity {
     @OneToMany(mappedBy = "missionario", fetch = FetchType.EAGER)
     private List<MinisterioEntity> ministerios;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "comunhaoDeBens", joinColumns = @JoinColumn(name = "missionario_id"))
-    @Column(name = "comunhaoDeBens")
-    private List<String> comunhaoDeBens;
+    @OneToMany(mappedBy = "missionario", fetch = FetchType.EAGER)
+    private List<ComunhaoDeBensEntity> comunhaoDeBens;
 
     @Column(name = "dataInclusao")
     private LocalDateTime dataInclusao;
