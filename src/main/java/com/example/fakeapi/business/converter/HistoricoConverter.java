@@ -1,7 +1,7 @@
 package com.example.fakeapi.business.converter;
 
-import com.example.fakeapi.apiv1.dto.MinisterioDTO;
-import com.example.fakeapi.infrastrucutre.entities.MinisterioEntity;
+import com.example.fakeapi.apiv1.dto.HistoricoDTO;
+import com.example.fakeapi.infrastrucutre.entities.HistoricoEntity;
 import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import com.example.fakeapi.infrastrucutre.repositories.MissionarioRepository;
 import org.jetbrains.annotations.NotNull;
@@ -11,30 +11,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class MinisterioConverter {
+public class HistoricoConverter {
 
     public final MissionarioRepository missionarioRepository;
 
-    public MinisterioConverter(MissionarioRepository missionarioRepository) {
+    public HistoricoConverter(MissionarioRepository missionarioRepository) {
         this.missionarioRepository = missionarioRepository;
     }
 
-    public MinisterioEntity toEntity(@NotNull MinisterioDTO dto) {
+    public HistoricoEntity toEntity(@NotNull HistoricoDTO dto) {
         var missionario = missionarioRepository
                 .findById(dto.getMissionario())
                 .orElseThrow(() -> new RuntimeException("Missionário não encontrado com ID: " + dto.getMissionario()));
 
-        return MinisterioEntity
+        return HistoricoEntity
                 .builder()
                 .id(dto.getId())
-                .ministerio(dto.getMinisterio())
-                .tipo(dto.getTipo())
-                .prioridade(dto.getPrioridade())
+                .pastoreio(dto.getPastoreio())
+                .ano(dto.getAno())
+                .observacoes(dto.getObservacoes())
                 .missionario(missionario)
                 .build();
     }
 
-    public MinisterioEntity toEntityUpdate(MinisterioEntity entity, @NotNull MinisterioDTO dto, Long id) {
+    public HistoricoEntity toEntityUpdate(HistoricoEntity entity, @NotNull HistoricoDTO dto, Long id) {
         MissionarioEntity missionario;
 
         if (dto.getId() != null) {
@@ -45,32 +45,32 @@ public class MinisterioConverter {
             missionario = entity.getMissionario();
         }
 
-        return MinisterioEntity
+        return HistoricoEntity
                 .builder()
                 .id(id)
-                .ministerio(dto.getMinisterio() != null ? dto.getMinisterio() : entity.getMinisterio())
-                .tipo(dto.getTipo() != null ? dto.getTipo() : entity.getTipo())
-                .prioridade(dto.getPrioridade() != null ? dto.getPrioridade() : entity.getPrioridade())
+                .pastoreio(dto.getPastoreio() != null ? dto.getPastoreio() : entity.getPastoreio())
+                .ano(dto.getAno() != null ? dto.getAno() : entity.getAno())
+                .observacoes(dto.getObservacoes() != null ? dto.getObservacoes() : entity.getObservacoes())
                 .missionario(missionario)
                 .build();
     }
 
-    public MinisterioDTO toDTO(@NotNull MinisterioEntity entity) {
+    public HistoricoDTO toDTO(@NotNull HistoricoEntity entity) {
         var missionario = missionarioRepository
                 .findById(entity.getMissionario().getId())
                 .orElseThrow(() -> new RuntimeException("Missionário não encontrado com ID: " + entity.getMissionario().getId()));
 
-        return MinisterioDTO
+        return HistoricoDTO
                 .builder()
                 .id(entity.getId())
-                .ministerio(entity.getMinisterio())
-                .tipo(entity.getTipo())
-                .prioridade(entity.getPrioridade())
+                .pastoreio(entity.getPastoreio())
+                .ano(entity.getAno())
+                .observacoes(entity.getObservacoes())
                 .missionario(missionario.getId())
                 .build();
     }
 
-    public List<MinisterioDTO> toListDTO(@NotNull List<MinisterioEntity> entityList) {
+    public List<HistoricoDTO> toListDTO(@NotNull List<HistoricoEntity> entityList) {
         return entityList.stream().map(this::toDTO).collect(Collectors.toList());
     }
 }
