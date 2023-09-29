@@ -1,5 +1,6 @@
 package com.example.fakeapi.business.converter;
 
+import com.example.fakeapi.apiv1.dto.MissionarioDTO;
 import com.example.fakeapi.apiv1.dto.ReciclagemDTO;
 import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import com.example.fakeapi.infrastrucutre.entities.ReciclagemEntity;
@@ -21,7 +22,7 @@ public class ReciclagemConverter {
 
     public ReciclagemEntity toEntity(@NotNull ReciclagemDTO dto) {
         var missionario = missionarioRepository
-                .findById(dto.getMissionario())
+                .findById(dto.getMissionario().getId())
                 .orElseThrow(() -> new RuntimeException("Missionário não encontrado com ID: " + dto.getMissionario()));
 
         return ReciclagemEntity
@@ -39,7 +40,7 @@ public class ReciclagemConverter {
 
         if (dto.getId() != null) {
             missionario = missionarioRepository
-                    .findById(dto.getMissionario())
+                    .findById(dto.getMissionario().getId())
                     .orElseThrow(() -> new RuntimeException("Missionário não encontrado com ID: " + dto.getMissionario()));
         } else {
             missionario = entity.getMissionario();
@@ -66,7 +67,7 @@ public class ReciclagemConverter {
                 .dataPrevista(entity.getDataPrevista())
                 .dataConclusao(entity.getDataConclusao())
                 .local(entity.getLocal())
-                .missionario(missionario.getId())
+                .missionario(MissionarioDTO.builder().build())
                 .build();
     }
 

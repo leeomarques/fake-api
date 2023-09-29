@@ -1,6 +1,7 @@
 package com.example.fakeapi.business.converter;
 
 import com.example.fakeapi.apiv1.dto.MissionarioDTO;
+import com.example.fakeapi.infrastrucutre.entities.MissaoEntity;
 import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class MissionarioConverter {
                 .nomeCompleto(dto.getNomeCompleto())
                 .nivelFormativo(dto.getNivelFormativo())
                 .formacao(dto.getFormacao())
-                .missao(dto.getMissao())
+                .missao(MissaoEntity.builder().build())
                 .formadorPessoal(dto.getFormadorPessoal())
                 .formadorComunitario(dto.getFormadorComunitario())
                 .acompanhamentoComunitario(dto.getAcompanhamentoComunitario())
@@ -42,7 +43,8 @@ public class MissionarioConverter {
                 .nomeCompleto(dto.getNomeCompleto() != null ? dto.getNomeCompleto() : entity.getNomeCompleto())
                 .nivelFormativo(dto.getNivelFormativo() != null ? dto.getNivelFormativo() : entity.getNivelFormativo())
                 .formacao(dto.getFormacao() != null ? dto.getFormacao() : entity.getFormacao())
-                .missao(dto.getMissao() != null ? dto.getMissao() : entity.getMissao())
+                //.missao(dto.getMissao() != null ? dto.getMissao() : entity.getMissao())
+                .missao(MissaoEntity.builder().id(dto.getId()).build())
                 .formadorPessoal(dto.getFormadorPessoal() != null ? dto.getFormadorPessoal() : entity.getFormadorPessoal())
                 .formadorComunitario(dto.getFormadorComunitario() != null ? dto.getFormadorComunitario() : entity.getFormadorComunitario())
                 .acompanhamentoComunitario(
@@ -75,6 +77,8 @@ public class MissionarioConverter {
         return entityList.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
+
+    //TODO Jogar o BLOB para Base64 - nunca para String
     public Blob stringToBlob(String content) {
         if (content != null) {
             try {

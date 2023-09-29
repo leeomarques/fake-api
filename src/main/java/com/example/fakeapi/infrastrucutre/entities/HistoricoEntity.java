@@ -6,8 +6,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "historicos")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -15,7 +14,6 @@ public class HistoricoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "historico_id")
     private Long id;
 
     @Column(name = "pastoreio")
@@ -28,8 +26,9 @@ public class HistoricoEntity {
     private String observacoes;
 
     @ManyToOne
-    @JoinColumn(name = "missionario_id")
+    @JoinColumn(name = "missionario_id", referencedColumnName = "id")
     private MissionarioEntity missionario;
 
-
+    @Column(name = "missionario_id", insertable = false, updatable = false) // Add this line
+    private Long missionarioId; // This field is used to map to the 'id' column without conflicting with the 'missionario' property.
 }

@@ -6,8 +6,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "comunhao_de_bens")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -15,7 +14,6 @@ public class ComunhaoDeBensEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comunhao_de_bens_id")
     private Long id;
 
     @Column(name = "dezPorcentos")
@@ -27,9 +25,7 @@ public class ComunhaoDeBensEntity {
     @Column(name = "observacoes")
     private String observacoes;
 
-    @ManyToOne
-    @JoinColumn(name = "missionario_id")
+    @OneToOne
+    @JoinColumn(name = "missionario", referencedColumnName = "id")
     private MissionarioEntity missionario;
-
-
 }

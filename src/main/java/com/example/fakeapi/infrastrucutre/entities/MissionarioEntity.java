@@ -10,8 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "missionarios")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -19,7 +18,6 @@ public class MissionarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "missionario_id")
     private Long id;
 
     @Column(name = "nomeCompleto")
@@ -31,8 +29,12 @@ public class MissionarioEntity {
     @Column(name = "formacao")
     private String formacao;
 
-    @Column(name = "missao")
-    private String missao;
+    @OneToOne
+    @JoinColumn(name = "id_missao", referencedColumnName = "id", insertable = false, updatable = false)
+    private MissaoEntity missao;
+
+    @Column(name = "id_missao")
+    private Long id_missao;
 
     @Column(name = "formadorPessoal")
     private Boolean formadorPessoal;
