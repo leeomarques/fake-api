@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reciclagem")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,7 +16,6 @@ public class ReciclagemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reciclagem_id")
     private Long id;
 
     @Column(name = "dataPrevista")
@@ -30,7 +28,7 @@ public class ReciclagemEntity {
     private String local;
 
     @ManyToOne
-    @JoinColumn(name = "missionario_id")
+    @JoinColumn(name = "missionario_id", referencedColumnName = "id")
     private MissionarioEntity missionario;
 
 

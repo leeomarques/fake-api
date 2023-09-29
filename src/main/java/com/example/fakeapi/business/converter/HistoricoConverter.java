@@ -1,6 +1,7 @@
 package com.example.fakeapi.business.converter;
 
 import com.example.fakeapi.apiv1.dto.HistoricoDTO;
+import com.example.fakeapi.apiv1.dto.MissionarioDTO;
 import com.example.fakeapi.infrastrucutre.entities.HistoricoEntity;
 import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import com.example.fakeapi.infrastrucutre.repositories.MissionarioRepository;
@@ -21,7 +22,7 @@ public class HistoricoConverter {
 
     public HistoricoEntity toEntity(@NotNull HistoricoDTO dto) {
         var missionario = missionarioRepository
-                .findById(dto.getMissionario())
+                .findById(dto.getMissionario().getId())
                 .orElseThrow(() -> new RuntimeException("Missionário não encontrado com ID: " + dto.getMissionario()));
 
         return HistoricoEntity
@@ -39,7 +40,7 @@ public class HistoricoConverter {
 
         if (dto.getId() != null) {
             missionario = missionarioRepository
-                    .findById(dto.getMissionario())
+                    .findById(dto.getMissionario().getId())
                     .orElseThrow(() -> new RuntimeException("Missionário não encontrado com ID: " + dto.getMissionario()));
         } else {
             missionario = entity.getMissionario();
@@ -66,7 +67,7 @@ public class HistoricoConverter {
                 .pastoreio(entity.getPastoreio())
                 .ano(entity.getAno())
                 .observacoes(entity.getObservacoes())
-                .missionario(missionario.getId())
+                .missionario(MissionarioDTO.builder().build())
                 .build();
     }
 

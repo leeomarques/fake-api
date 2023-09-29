@@ -1,6 +1,7 @@
 package com.example.fakeapi.business.converter;
 
 import com.example.fakeapi.apiv1.dto.ComunhaoDeBensDTO;
+import com.example.fakeapi.apiv1.dto.MissionarioDTO;
 import com.example.fakeapi.infrastrucutre.entities.ComunhaoDeBensEntity;
 import com.example.fakeapi.infrastrucutre.entities.MissionarioEntity;
 import com.example.fakeapi.infrastrucutre.repositories.MissionarioRepository;
@@ -21,7 +22,7 @@ public class ComunhaoDeBensConverter {
 
     public ComunhaoDeBensEntity toEntity(@NotNull ComunhaoDeBensDTO dto) {
         var missionario = missionarioRepository
-                .findById(dto.getMissionario())
+                .findById(dto.getMissionario().getId())
                 .orElseThrow(() -> new RuntimeException("Missionário não encontrado com ID: " + dto.getMissionario()));
 
         return ComunhaoDeBensEntity
@@ -39,7 +40,7 @@ public class ComunhaoDeBensConverter {
 
         if (dto.getId() != null) {
             missionario = missionarioRepository
-                    .findById(dto.getMissionario())
+                    .findById(dto.getMissionario().getId())
                     .orElseThrow(() -> new RuntimeException("Missionário não encontrado com ID: " + dto.getMissionario()));
         } else {
             missionario = entity.getMissionario();
@@ -66,7 +67,7 @@ public class ComunhaoDeBensConverter {
                 .dezPorcentos(entity.getDezPorcentos())
                 .cincoPorcentos(entity.getCincoPorcentos())
                 .observacoes(entity.getObservacoes())
-                .missionario(missionario.getId())
+                .missionario(MissionarioDTO.builder().build())
                 .build();
     }
 

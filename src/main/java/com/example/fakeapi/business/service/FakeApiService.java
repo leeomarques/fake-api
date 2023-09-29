@@ -1,4 +1,4 @@
-package com.example.fakeapi.business;
+package com.example.fakeapi.business.service;
 
 import com.example.fakeapi.apiv1.dto.ProductsDTO;
 import com.example.fakeapi.business.converter.ProdutoConverter;
